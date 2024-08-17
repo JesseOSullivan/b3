@@ -60,8 +60,6 @@ function startCursorDrift() {
 }
 
 
-
-
 function startCommentLetterRotation() {
     setInterval(() => {
         const documents = vscode.workspace.textDocuments.filter(doc => doc.languageId === 'javascript' || doc.languageId === 'typescript');
@@ -74,7 +72,7 @@ function startCommentLetterRotation() {
         const document = documents[Math.floor(Math.random() * documents.length)];
         const text = document.getText();
 
-        // Regular expression to find comments
+        // Regular expressiob to find comments
         const commentRegex = /\/\/[^\n]*/g;
         const comments = [...text.matchAll(commentRegex)];
 
@@ -110,8 +108,6 @@ function startCommentLetterRotation() {
     }, 100000); // 1 minute interval
 }
 
-
-
 let isProcessing = new Map<string, boolean>();
 
 function replaceSemicolonsInDocument(document: vscode.TextDocument) {
@@ -123,7 +119,7 @@ function replaceSemicolonsInDocument(document: vscode.TextDocument) {
     isProcessing.set(document.uri.toString(), true);
 
     const fullText = document.getText();
-    const replacedText = fullText.replace(/;/g, ';'); // Replace semicolons with Greek semicolons
+    const replacedText = fullText.replace(/;/g, ';'); // Replace semicolons with Greek semicolons
 
     if (fullText === replacedText) {
         console.log('No semicolons found to replace in document:', document.uri.toString());
@@ -158,7 +154,7 @@ function restoreSemicolonsInDocument(document: vscode.TextDocument) {
     isProcessing.set(document.uri.toString(), true);
 
     const fullText = document.getText();
-    const restoredText = fullText.replace(/;/g, ';'); // Restore regular semicolons
+    const restoredText = fullText.replace(/;/g, ';'); // Restore regular semicolons
 
     if (fullText === restoredText) {
         console.log('No Greek semicolons found to restore in document:', document.uri.toString());
@@ -223,7 +219,7 @@ function startRandomSemicolonReplacement() {
 
         const edit = new vscode.WorkspaceEdit();
         const range = new vscode.Range(position, position.translate(0, 1)); 
-        edit.replace(document.uri, range, ';'); // peplace semicolon with Greek semicolon
+        edit.replace(document.uri, range, ';'); // peplace semicolon with Greek semicolon
 
         vscode.workspace.applyEdit(edit).then(success => {
             if (success) {
@@ -235,43 +231,6 @@ function startRandomSemicolonReplacement() {
     }, 100000); // 100 seconds interval
 }
 
-
-
-function rotateLettersInComments(document: vscode.TextDocument) {
-    const fullText = document.getText();
-    const commentRegex = /\/\/[^\n]*|\/\*[\s\S]*?\*\//g;
-    let match;
-    let modified = false;
-    const edit = new vscode.WorkspaceEdit();
-
-    while ((match = commentRegex.exec(fullText)) !== null) {
-        const comment = match[0];
-        let rotatedComment = comment.replace(/[a-zA-Z]/g, c => {
-            const base = c <= 'Z' ? 65 : 97;
-            return String.fromCharCode(((c.charCodeAt(0) - base + 13) % 26) + base);
-        });
-
-        const startPos = document.positionAt(match.index);
-        const endPos = document.positionAt(match.index + comment.length);
-        const range = new vscode.Range(startPos, endPos);
-        edit.replace(document.uri, range, rotatedComment);
-        modified = true;
-        break; // Modify one comment at a time
-    }
-
-    if (!modified) {
-        console.log('No comments found to rotate letters in document:', document.uri.toString());
-        return;
-    }
-
-    vscode.workspace.applyEdit(edit).then(success => {
-        if (success) {
-            console.log('Letters in comments rotated successfully in document:', document.uri.toString());
-        } else {
-            console.error('Failed to rotate letters in comments in document:', document.uri.toString());
-        }
-    });
-}
 
 
 
