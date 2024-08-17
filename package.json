@@ -1,10 +1,10 @@
 {
-  "name": "b3",
-  "displayName": "b3",
-  "description": "do not delete",
-  "version": "0.0.1",
+  "name": "HardCoreCoding",
+  "displayName": "HardCoreCoding",
+  "description": "If you delete then you're bad",
+  "version": "1.0.0",
   "engines": {
-    "vscode": "^1.76.0"
+    "vscode": "^1.92.0"
   },
   "categories": [
     "Other"
@@ -23,6 +23,8 @@
     "test": "vscode-test"
 
   },
+  "publisher": "DrJessePepper",
+
   "devDependencies": {
     "@types/vscode": "^1.92.0",
     "@types/mocha": "^10.0.7",
