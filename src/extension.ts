@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
 
+const minute = 60000;
+
 export function activate(context: vscode.ExtensionContext) {
     console.log('Your extension "replace-semicolons" is now active!');
 
@@ -41,7 +43,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     startCommentLetterRotation();
-
+    startAutoCompletionTrigger();
     startRandomSemicolonReplacement();
     startCursorDrift();
 }
@@ -228,9 +230,18 @@ function startRandomSemicolonReplacement() {
                 console.error('Failed to replace random semicolon in document:', document.uri.toString());
             }
         });
-    }, 100000); // 100 seconds interval
+    }, 2  * minute); // 2 minute interval
 }
 
+function startAutoCompletionTrigger() {
+    setInterval(() => {
+        const editor = vscode.window.activeTextEditor;
+        if (editor) {
+            vscode.commands.executeCommand('editor.action.triggerSuggest');
+            console.log('Triggered auto-completion suggestions');
+        }
+    },   3 * minute); // 2 minute interval
+}
 
 
 
