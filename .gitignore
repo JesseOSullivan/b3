@@ -1,0 +1,7 @@
+# Ignore build output directories
+/out/
+
+# Ignore package manager directories
+/node_modules/
+
+.vscode-test/

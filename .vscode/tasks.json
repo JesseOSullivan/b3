@@ -1,0 +1,28 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+	  {
+		"label": "Replace Semicolons",
+		"type": "shell",
+		"command": "code",
+		"args": ["--command", "extension.replaceSemicolons"],
+		"problemMatcher": []
+	  },
+	  {
+		"label": "Run TypeScript Compilation",
+		"type": "shell",
+		"command": "tsc",
+		"dependsOn": "Replace Semicolons",
+		"problemMatcher": []
+	  },
+	  {
+		"label": "Restore Semicolons",
+		"type": "shell",
+		"command": "code",
+		"args": ["--command", "extension.restoreSemicolons"],
+		"dependsOn": "Run TypeScript Compilation",
+		"problemMatcher": []
+	  }
+	]
+  }
+  
