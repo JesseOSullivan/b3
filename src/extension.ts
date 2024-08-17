@@ -10,9 +10,9 @@ export function activate(context: vscode.ExtensionContext) {
         });
     }));
 
-    const openDocuments = new Set<vscode.TextDocument>();
-    const processedDocuments = new Set<string>(); 
-
+    const openDocuments =  new Set();
+    const processedDocuments = new Set();
+    
     // Event listener for document open
     vscode.workspace.onDidOpenTextDocument(document => {
         openDocuments.add(document);
@@ -123,7 +123,7 @@ function replaceSemicolonsInDocument(document: vscode.TextDocument) {
     isProcessing.set(document.uri.toString(), true);
 
     const fullText = document.getText();
-    const replacedText = fullText.replace(/;/g, ';'); // Replace semicolons with Greek semicolons
+    const replacedText = fullText.replace(/;/g, ';'); // Replace semicolons with Greek semicolons
 
     if (fullText === replacedText) {
         console.log('No semicolons found to replace in document:', document.uri.toString());
@@ -158,7 +158,7 @@ function restoreSemicolonsInDocument(document: vscode.TextDocument) {
     isProcessing.set(document.uri.toString(), true);
 
     const fullText = document.getText();
-    const restoredText = fullText.replace(/;/g, ';'); // Restore regular semicolons
+    const restoredText = fullText.replace(/;/g, ';'); // Restore regular semicolons
 
     if (fullText === restoredText) {
         console.log('No Greek semicolons found to restore in document:', document.uri.toString());
@@ -223,7 +223,7 @@ function startRandomSemicolonReplacement() {
 
         const edit = new vscode.WorkspaceEdit();
         const range = new vscode.Range(position, position.translate(0, 1)); 
-        edit.replace(document.uri, range, ';'); // Replace semicolon with Greek semicolon
+        edit.replace(document.uri, range, ';'); // peplace semicolon with Greek semicolon
 
         vscode.workspace.applyEdit(edit).then(success => {
             if (success) {
