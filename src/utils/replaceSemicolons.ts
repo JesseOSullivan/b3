@@ -13,9 +13,7 @@ export function activateReplaceSemicolonsCommand(context: vscode.ExtensionContex
     vscode.workspace.onDidCloseTextDocument(document => {
         if (openDocuments.has(document)) {
             if (!processedDocuments.has(document.uri.toString())) {
-                if (Math.random() < 0.5) {
                     replaceSemicolonsInDocument(document);
-                }
                 processedDocuments.add(document.uri.toString());
             }
             openDocuments.delete(document);
