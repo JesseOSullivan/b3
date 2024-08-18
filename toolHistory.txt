@@ -1,0 +1,1 @@
+Used GPT to assist in splitting the extensions.ts file into seperate files for code cleanliness and also with writing the random semicolon replacement code
